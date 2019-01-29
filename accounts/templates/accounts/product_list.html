@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+Welcome {{e}}
+{% for product_ids, list_name, list_des, list_price, list_image in comb_lis%}
+<ul class="list group" style="border:1px solid #cecece;" >
+<br><br>
+product name: {{list_name}}<br>
+product_ID : {{product_ids}}<br>
+product Description:{{list_des}}<br>
+price: {{list_price}}<br>
+Product Image:<br>
+<img src="{{list_image}}" width="25%" height="25%">
+ <form action="/accounts/post_remove/?z={{product_ids}}" method="post">
+   {% csrf_token %}
+<input class="btn-danger" type="submit" value="REMOVE ITEM"  >
+</form>
+ <form action="/accounts/post_pre_update/?z={{product_ids}}" method="post">
+   {% csrf_token %}
+<input class="btn-success" type="submit" value="EDIT ITEM"  >
+ </form>
+
+</ul>
+{% endfor %}
+
+{% endblock %}

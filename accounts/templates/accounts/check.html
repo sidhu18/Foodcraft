@@ -1,0 +1,22 @@
+
+
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+<h4>Categories</h4>
+
+<br><br>
+<ul class="list-group">
+{% if cat_Ids is None %}
+{% for cat_Ids, lis_cat_name in comb_lis %}
+  <li class="list-group-item" ><a href="/accounts/post_check/?z={{cat_Ids}}"  > {{lis_cat_name}} </a> </li>
+<br>
+
+{% endfor %}
+{% endif %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <body style="background-color:#E6E6FA;">
+<H2>ADD NEW ITEM</H2>
+<div class="container" style="border:1px solid #cecece; background-color:#F8F8FF;">
+
+<form action="/accounts/post_create/" method="post">
+    {% csrf_token %}
+<br>
+    Product_Name:
+    <input type="text" name="name" required><br><br>
+       <p>
+             <label>Select category</label>
+             <select id = "category" name="category">
+                {% for cat_Ids,cat_name in cat_list %}
+               <option value = {{cat_Ids}}>{{cat_name}}</option>
+                {% endfor %}
+             </select>
+       </p>
+      Price:
+    <input type="text" name="price" required><br><br>
+    Description :
+    <input type="text" name="description" required><br><br>
+
+
+
+     <br><br>
+    Product Image:
+    <input type="file" name="files[]" id="files" required>
+    <input type="hidden" name="url" id="url">
+    <button type="button" onclick="uploadimage()">Upload</button><br><br>
+    <input type="submit" value="Submit">
+
+
+
+</form>
+</div>
+  </body>
+<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script>
+    var config = {
+    apiKey: "AIzaSyB0Il0NLQPxxDyMgoE0fOMd4pYUkbkZVvI",
+    authDomain: "cpanel-5e873.firebaseapp.com",
+    databaseURL: "https://cpanel-5e873.firebaseio.com",
+    storageBucket: "cpanel-5e873.appspot.com",
+    messagingSenderId: "579985583952"
+  };
+  firebase.initializeApp(config);
+
+  // Get a reference to the storage service, which is used to create references in your storage bucket
+
+  function uploadimage(){
+  var storage = firebase.storage();
+
+  var file = document.getElementById("files").files[0];
+
+  var storageRef = storage.ref();
+
+  var thisref = storageRef.child(file.name).put(file);
+
+  thisref.on('state_changed',function(snapshot){
+
+  console.log("file uplaoded succesfully");
+
+  },
+  function(error) {
+
+  },
+
+  function() {
+  // Upload completed successfully, now we can get the download URL
+  var downloadURL = thisref.snapshot.downloadURL;
+  console.log("got url");
+  document.getElementById("url").value = downloadURL;
+  alert("file uploaded successfully");
+});
+
+
+
+
+
+
+    }
+
+
+</script>
+</html>
+{% endblock %}

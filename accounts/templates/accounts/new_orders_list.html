@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+
+
+{% block body %}
+
+
+<br>
+<br>
+
+<div class="container" style="border:1px solid #cecece;" >
+
+ <h4>NEW ORDERS</h4>
+
+{% for order_id, order_data in orders.items %}
+   <h3>{{order_id}}</h3>
+ <form action="/accounts/order_taken/?z={{order_id}}" method="post">
+   {% csrf_token %}
+<input class="btn-default" type="submit" value="CHECK ORDER"  >
+</form>
+ <br>
+
+<div class="container-fluid" style="border:1px solid #cecece;" >
+ <table class="table table-striped" style="width:80%">
+
+  <tr>
+    <th>Category</th>
+    <th>Item Name</th>
+    <th>Quantity</th>
+    <th>Price</th>
+
+  </tr>
+
+{% for order_subid, contents in order_data.items %}
+
+
+    {% if order_subid != 'user_ID' or order_subid != 'address' or order_subid != 'phone' or order_subid != 'total' or order_subid != 'order_date' or order_subid != 'payment_status'  %}
+
+  <tr>
+        {% for label, item in contents.items %}
+
+    <td height="30px" >{{ item }}</td>
+
+        {% endfor %}
+
+  </tr>
+
+    {% endif %}
+
+    {% if order_subid == 'address' %}
+
+<h5>ADDRESS:   {{contents}}</h5>
+
+    {% endif %}
+
+    {% if order_subid == 'phone' %}
+
+<h5>PHONE NUMBER:   {{contents}}</h5>
+
+    {% endif %}
+
+    {% if order_subid == 'order_date' %}
+
+<h5>ORDER DATE:   {{contents}}</h5>
+
+    {% endif %}
+
+
+    {% if order_subid == 'total' %}
+
+<h5>TOTAL AMOUNT:   {{contents}}</h5>
+
+    {% endif %}
+
+    {% if order_subid == 'payment_status' %}
+
+<h5>PAYMENT STATUS:   {{contents}}</h5>
+
+    {% endif %}
+
+  {% endfor %}
+
+  <br>
+
+</table>
+
+
+</div>
+ {% endfor %}
+</div>
+<br><br>
+
+{% endblock %}

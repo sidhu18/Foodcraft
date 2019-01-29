@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+<form action="/fgh/" method="post">
+    {% csrf_token %}
+    Email:
+    <input type="email" name="emai" required="true">
+    Password:
+    <input type="password" name="pas" required="true">
+    <input type="submit" value="register">
+</form>
+</body>
+</html>
