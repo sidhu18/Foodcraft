@@ -252,7 +252,7 @@ def view_new_orders(request):
     global userID
     global admin_prev
 
-    orders = database.child('orders').child(admin_prev).get().val()
+    orders = database.child('orders').child(admin_prev).order_by_key().limit_to_last(11).get().val()
     print(orders)
     orders.pop('stable', None)
     return render(request, 'accounts/new_orders_list.html', {'orders': orders})
@@ -298,7 +298,7 @@ def view_completed_orders(request):
     global userID
     global admin_prev
 
-    orders = database.child('orders').child('delivered').get().val()
+    orders = database.child('orders').child('delivered').order_by_key().limit_to_last(11).get().val()
     orders.pop('stable', None)
     print(orders)
 

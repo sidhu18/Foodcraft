@@ -13,7 +13,6 @@
  <h4>NEW ORDERS</h4>
 
 {% for order_id, order_data in orders.items %}
-   <h3>{{order_id}}</h3>
  <form action="/accounts/order_taken/?z={{order_id}}" method="post">
    {% csrf_token %}
 <input class="btn-default" type="submit" value="CHECK ORDER"  >
