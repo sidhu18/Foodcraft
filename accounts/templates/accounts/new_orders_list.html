@@ -7,21 +7,18 @@
 
 <br>
 <br>
+<link rel="stylesheet" type="text/css" href="style.css">
+<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;" >
 
-<div class="container" style="border:1px solid #cecece;" >
+ <h3 style="padding-left:8px;"><strong>New Orders</strong></h3>
 
- <h4>NEW ORDERS</h4>
 
-{% for order_id, order_data in orders.items %}
- <form action="/accounts/order_taken/?z={{order_id}}" method="post">
-   {% csrf_token %}
-<input class="btn-default" type="submit" value="CHECK ORDER"  >
-</form>
+ {% for order_id, order_data in orders.items %}
  <br>
 
-<div class="container-fluid" style="border:1px solid #cecece;" >
- <table class="table table-striped" style="width:80%">
-
+<div class="container-fluid rounded" style="border:1px solid #ffffff; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px" >
+ <table class="table" style="width:80%;">
+    <br>
   <tr>
     <th>Category</th>
     <th>Item Name</th>
@@ -29,6 +26,9 @@
     <th>Price</th>
 
   </tr>
+ 
+
+  
 
 {% for order_subid, contents in order_data.items %}
 
@@ -48,32 +48,42 @@
 
     {% if order_subid == 'address' %}
 
-<h5>ADDRESS:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Address :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'phone' %}
 
-<h5>PHONE NUMBER:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Phone :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'order_date' %}
 
-<h5>ORDER DATE:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Order date :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
 
     {% if order_subid == 'total' %}
 
-<h5>TOTAL AMOUNT:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Total :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'payment_status' %}
 
-<h5>PAYMENT STATUS:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Payment Status :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
@@ -81,10 +91,16 @@
 
   <br>
 
+
 </table>
 
-
+<form action="/accounts/order_taken/?z={{order_id}}" method="post">
+    {% csrf_token %}
+    
+<input class="btn btn-primary" type="submit" value="CHECK ORDER"  >
+</form>
 </div>
+
  {% endfor %}
 </div>
 <br><br>
