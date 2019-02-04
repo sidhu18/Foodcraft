@@ -8,14 +8,16 @@
 <br>
 <br>
 
-<div class="container">
+<div class="container-fluid" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;" >
 
- <h4>NEW ORDERS</h4>
+    <h3 style="padding-left:8px; padding-bottom:15px"><strong>Completed orders</strong></h3>
 
 {% for order_id, order_data in orders.items %}
-<div data-spy="scroll" class="container-fluid">
- <h3>{{order_id}}</h3>
+<div class="container-fluid rounded" style="border:1px solid #ffffff; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px; padding-top:5px" >
  <table class="table table-striped" style="width:80%">
+<div class="container-fluid rounded"style="border-bottom:1px solid rgba(200, 200, 200, 0.15);padding:0px">   
+    <h4>Order # {{order_id}}</h4>
+</div>
 
   <tr>
     <th>Category</th>
@@ -42,32 +44,42 @@
 
     {% if order_subid == 'address' %}
 
-<h5>ADDRESS:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Address :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'phone' %}
 
-<h5>PHONE NUMBER:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Phone :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'order_date' %}
 
-<h5>ORDER DATE:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Order Date :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
 
     {% if order_subid == 'total' %}
 
-<h5>TOTAL AMOUNT:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Total Amount :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 
     {% if order_subid == 'payment_status' %}
 
-<h5>PAYMENT STATUS:   {{contents}}</h5>
+    <dl class="row">
+        <dt class="col-sm-3">Payment Status :</dt>
+        <dd class="col-sm-9">{{contents}}</dd>
 
     {% endif %}
 

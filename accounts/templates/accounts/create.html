@@ -1,36 +1,67 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <body style="background-color:#E6E6FA;">
-<H2>ADD NEW ITEM</H2>
-<div class="container" style="border:1px solid #cecece; background-color:#F8F8FF;">
-
+<div class="container-fluid" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;">
+<h3 style="padding-left:8px; padding-bottom:15px"><strong>Add new item</strong></h3>
 <form action="/accounts/post_create/" method="post">
     {% csrf_token %}
-<br>
-    Product_Name:
-    <input type="text" name="name" required><br><br>
-       <p>
+    <br>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label>Produt Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Enter the name of product " required>
+        </div>
+    </div>
+      <!-- <div class="col-auto my-1">
+          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
+            <option selected>Choose...</option>
+            {% for cat_Ids,cat_name in cat_list %}
+            <option value={{cat_Ids}}>{{cat_name}}</option>
+            {% endfor %}
+          </select> 
+      </div> -->
+       <!-- <p>
              <label>Select category</label>
              <select id = "category" name="category">
                 {% for cat_Ids,cat_name in cat_list %}
                <option value = {{cat_Ids}}>{{cat_name}}</option>
                 {% endfor %}
              </select>
-       </p>
-      Price:
-    <input type="text" name="price" required><br><br>
-    Description :
-    <input type="text" name="description" required><br><br>
+       </p> -->
 
-
-
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label>Price</label>
+          <input type="text" name="price" class="form-control" placeholder="Enter price of product" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label>Description</label>
+          <input type="text" name="description" class="form-control" placeholder="Enter description of product" required>
+        </div>
+    </div>
      <br><br>
-    Product Image:
+
+     <div class="input-group mb-3">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" name="files[]" id="files" required/>
+            <!-- <label class="custom-file-label" for="inputGroupFile02">Choose file</label> -->
+        </div>
+        <div class="input-group-append">
+            <br>
+            <button class="btn btn-primary" type="button" onclick="uploadImage()">Upload</button>
+        </div>
+        <div class="btnclass">
+            <button type="submit" class="btn btn-primary" style="margin-top: 5px">Submit</button>
+        </div>
+    </div>
+
+    <!-- Product Image:
     <input type="file" name="files[]" id="files" required>
     <input type="hidden" name="url" id="url">
     <button type="button" onclick="uploadimage()">Upload</button><br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit"> -->
 
 
 
@@ -50,7 +81,7 @@
 
   // Get a reference to the storage service, which is used to create references in your storage bucket
 
-  function uploadimage(){
+  function uploadImage(){
   var storage = firebase.storage();
 
   var file = document.getElementById("files").files[0];
