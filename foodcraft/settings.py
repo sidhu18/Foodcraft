@@ -25,7 +25,7 @@ SECRET_KEY = 'g*-^hb%q1*q@)e8z*b)sg(w=56uko8$!=x@h%xp_kql&6!bog2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['djangofoodcraft.herokuapp.com']
 
 
 # Application definition
