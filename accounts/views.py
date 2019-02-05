@@ -117,6 +117,7 @@ def create(request):
 def post_create(request):
 
     product_name = request.POST.get('name')
+    amounttype = request.POST.get('amounttype')
     category = request.POST.get('category')
     description = request.POST.get('description')
     price = request.POST.get('price')
@@ -128,6 +129,8 @@ def post_create(request):
         'image': url,
         "name": product_name,
         "price": int(price),
+        "type": amounttype
+
     }
     product_ID = database.child('total_pro').get().val()
     product_ID=int(product_ID)
@@ -177,14 +180,18 @@ def post_check(request):
     list_image= []
     list_price=[]
     list_menuId=[]
+    list_type=[]
+
     for i in product_features:
         list_des.append(i['description'])
         list_name.append(i['name'])
         list_image.append(i['image'])
         list_price.append(i['price'])
         list_menuId.append(i['MenuId'])
+        list_type.append(i['type'])
 
-    comb_lis = zip(product_ids, list_name, list_des, list_price, list_image)
+
+    comb_lis = zip(product_ids, list_name, list_des, list_price, list_image, list_type)
 
     return render(request, 'accounts/product_list.html', {'comb_lis': comb_lis})
 
@@ -229,6 +236,7 @@ def post_update(request):
     product_id = request.POST.get('product_id')
     product_name = request.POST.get('name')
     category = request.POST.get('category')
+    amounttype = request.POST.get('amounttype')
     description = request.POST.get('description')
     price = request.POST.get('price')
     url = request.POST.get('url')
@@ -239,6 +247,7 @@ def post_update(request):
         'image': url,
         "name": product_name,
         "price": int(price),
+        "type": amounttype
     }
     database.child('products').child(product_id).set(data)
     return render(request, 'accounts/welcome.html', {'e': 'Item edited Successfully'})
