@@ -6,7 +6,7 @@
 <form action="/accounts/post_update/" method="post">
       <div class="form-group">
     {% csrf_token %}
-    <input type="hidden" name="product_id" value={{ product_ID }} readonly><br><br>
+    <input type="hidden" name="product_id" value={{product_ID}} readonly><br><br>
      Product_Name:
     <input type="text" name="name" required><br><br>
        <p>
@@ -17,19 +17,7 @@
                 {% endfor %}
              </select>
        </p>
-
-                 <p>
-             <label>Select Type</label>
-             <select id = "amounttype" name="amounttype">
-               <option value = "Pc">PC</option>
-               <option value = "Kg">kg</option>
-               <option value = "100gmpkt">100gm</option>
-               <option value = "500gmpkt">500gm</option>
-               <option value = "800gmpkt">800gm</option>
-
-             </select>
-       </p>
-          Description :
+    Description :
     <input type="text" name="description" required><br><br>
      Price :
     <input type="text" name="price" required><br><br>
