@@ -21,8 +21,11 @@ firebase = pyrebase.initialize_app(config)
 authe = firebase.auth()
 database = firebase.database()
 global userID
+userID = None
 global admin_prev
+admin_prev = None
 global uid
+uid = None
 
 
 def signIn(request):
@@ -52,8 +55,8 @@ def postsign(request):
 def logout(request):
     global userID
     global admin_prev
-    userID = ""
-    admin_prev = ""
+    userID = None
+    admin_prev = None
     return render(request, 'accounts/signIn.html')
 
 
@@ -79,12 +82,21 @@ def postsignup(request):
 
 
 def add_category(request):
+    global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+
     return render(request,'accounts/add_category.html')
 
 def post_add_category(request):
+    global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+
     category = request.POST.get('category')
     url = request.POST.get('url')
-    category_try = request.POST.get('sample')
     total=database.child('total_cat').get().val()
     total=int(total)
     total = total+1
@@ -100,6 +112,12 @@ def post_add_category(request):
 
 
 def create(request):
+    global admin_prev
+    global userID
+
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+
     Ids = database.child('categories').shallow().get().val()
     cat_Ids=[]
     for i in Ids:
@@ -115,6 +133,10 @@ def create(request):
 
 
 def post_create(request):
+    global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
 
     product_name = request.POST.get('name')
     category = request.POST.get('category')
@@ -128,6 +150,7 @@ def post_create(request):
         'image': url,
         "name": product_name,
         "price": int(price),
+
     }
     product_ID = database.child('total_pro').get().val()
     product_ID=int(product_ID)
@@ -138,7 +161,11 @@ def post_create(request):
 
 
 def check_categories(request):
+    global admin_prev
     global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+
     idtoken = userID
     cat_Ids = database.child('categories').shallow().get().val()
     if cat_Ids is None:
@@ -165,8 +192,12 @@ def check_categories(request):
 
 def post_check(request):
 
-    cat_Id = request.GET.get('z')
+    global admin_prev
     global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+    cat_Id = request.GET.get('z')
+
     product_list = database.child('products').order_by_child('MenuId').equal_to(cat_Id).get().val()
 
 
@@ -177,6 +208,7 @@ def post_check(request):
     list_image= []
     list_price=[]
     list_menuId=[]
+
     for i in product_features:
         list_des.append(i['description'])
         list_name.append(i['name'])
@@ -184,13 +216,17 @@ def post_check(request):
         list_price.append(i['price'])
         list_menuId.append(i['MenuId'])
 
+
     comb_lis = zip(product_ids, list_name, list_des, list_price, list_image)
 
     return render(request, 'accounts/product_list.html', {'comb_lis': comb_lis})
 
 def post_remove(request):
     product_ID = request.GET.get('z')
+    global admin_prev
     global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
     idtoken = userID
 
     try:
@@ -202,7 +238,10 @@ def post_remove(request):
 
 def post_pre_update(request):
     product_ID = request.GET.get('z')
+    global admin_prev
     global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
     idtoken = userID
     cat_Ids = database.child('categories').shallow().get().val()
     if cat_Ids is None:
@@ -225,6 +264,10 @@ def post_pre_update(request):
     return render(request, 'accounts/post_update.html', {'product_ID':product_ID, 'comb_lis':comb_lis})
 
 def post_update(request):
+    global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
 
     product_id = request.POST.get('product_id')
     product_name = request.POST.get('name')
@@ -249,8 +292,10 @@ def post_update(request):
 
 def view_new_orders(request):
 
-    global userID
     global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
 
     orders = database.child('orders').child(admin_prev).order_by_key().limit_to_last(11).get().val()
     print(orders)
@@ -258,10 +303,13 @@ def view_new_orders(request):
     return render(request, 'accounts/new_orders_list.html', {'orders': orders})
 
 
-
 def order_taken(request):
+
     global admin_prev
     global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
+
 
     order_id = request.GET.get('z')
     selected = database.child('orders').child(admin_prev).child(order_id).get().val()
@@ -295,14 +343,14 @@ def order_taken(request):
 
 
 def view_completed_orders(request):
-    global userID
-    global admin_prev
 
+    global admin_prev
+    global userID
+    if (admin_prev == None or userID == None):
+        return render(request, "accounts/signIn.html")
     orders = database.child('orders').child('delivered').order_by_key().limit_to_last(11).get().val()
     orders.pop('stable', None)
     print(orders)
-
-
     return render(request, 'accounts/view_completed_orders.html', {'orders': orders})
 
 
