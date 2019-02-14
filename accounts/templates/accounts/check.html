@@ -5,18 +5,21 @@
 
 
 {% block body %}
-
-<h4>Categories</h4>
-
 <br><br>
-<ul class="list-group">
+<div class="container">
+  <h3 style="padding-left:8px; padding-bottom:15px"><strong>Categories</strong></h3>
+
+<br>
+<ul class="list-group ">
 {% if cat_Ids is None %}
 {% for cat_Ids, lis_cat_name in comb_lis %}
-  <li class="list-group-item" ><a href="/accounts/post_check/?z={{cat_Ids}}"  > {{lis_cat_name}} </a> </li>
+  <li class="list-group-item" ><a href="/accounts/post_check/?z={{cat_Ids}}" style="color:darkslateblue; " > {{lis_cat_name}} </a> </li>
 <br>
 
 {% endfor %}
 {% endif %}
 </ul>
+</div>
+
 
 {% endblock %}

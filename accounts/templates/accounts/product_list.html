@@ -1,17 +1,37 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br><br>
 
 {% for product_ids, list_name, list_des, list_price, list_image in comb_lis%}
-<ul class="list group" style="border:1px solid #cecece;" >
+<div class="container">
+<ul class="list group" style="border:1px solid #cecece; border-radius:5px;" >
 <br><br>
-product name: {{list_name}}<br>
-product_ID : {{product_ids}}<br>
-product Description:{{list_des}}<br>
-price: {{list_price}}<br>
+<div>
+<dl class="row">
+  <dt class="col-sm-3">Product name :</dt>
+  <dd class="col-sm-9">{{list_name}}</dd>
+</div>
+<div>
+<dl class="row">
+  <dt class="col-sm-3">Product ID :</dt>
+  <dd class="col-sm-9">{{product_ids}}</dd>
+</div>
+  <div>
+<dl class="row">
+  <dt class="col-sm-3">Product Description :</dt>
+  <dd class="col-sm-9">{{list_des}}</dd>
+</div>
+  <div>
+    <dl class="row">
+      <dt class="col-sm-3">Price :</dt>
+      <dd class="col-sm-9">{{list_price}}</dd>
 
-Product Image:<br>
-<img src="{{list_image}}" width="25%" height="25%">
+    </div>
+<strong>Product Image:</strong>
+<br><br>
+<img src="{{list_image}}" class="img-fluid img-thumbnail " max-width: 100%; height: auto;>
+<br><br>
  <form action="/accounts/post_remove/?z={{product_ids}}" method="post">
    {% csrf_token %}
 <input class="btn-danger" type="submit" value="REMOVE ITEM"  >
@@ -22,6 +42,7 @@ Product Image:<br>
  </form>
 
 </ul>
+</div>
 {% endfor %}
 
 {% endblock %}

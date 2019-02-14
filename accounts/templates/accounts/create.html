@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="container-fluid" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;">
+<br><br>
+<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;">
 <h3 style="padding-left:8px; padding-bottom:15px"><strong>Add new item</strong></h3>
 <form action="/accounts/post_create/" method="post">
     {% csrf_token %}
@@ -12,9 +13,11 @@
           <input type="text" name="name" class="form-control" placeholder="Enter the name of product " required>
         </div>
     </div>
-    <br>
-      <div class="col-auto my-1">
-          <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="category">
+    
+      <div class="dropdown">
+            <label>Select a category</label><br>
+          <select class="btn btn-secondary dropdown-toggle" style="border: 1px solid rgba(83, 83, 83, 0.322)"id="inputGroupSelect04" name="category">
+            
             <option selected>Choose...</option>
             {% for cat_Ids,cat_name in cat_list %}
             <option value={{cat_Ids}}>{{cat_name}}</option>
@@ -60,21 +63,23 @@
 
      <br><br>
 
-     <div class="input-group mb-3">
+     <div class="form-group row">
+     <div class="col-sm-10">
         <div class="custom-file">
             <input type="file" class="custom-file-input" name="files[]" id="files" required/>
             <input type="hidden" name="url" id="url">
 
             <!-- <label class="custom-file-label" for="inputGroupFile02">Choose file</label> -->
         </div>
-        <div class="input-group-append">
             <br>
-            <button class="btn btn-primary" type="button" onclick="uploadImage()">Upload</button>
+            <button class="btn btn-secondary" style="border:1px solid rgba(83, 83, 83, 0.322)" type="button" onclick="uploadImage()">Upload</button>
+            <div class="btnclass pull-right">
+                <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-        <div class="btnclass">
-            <button type="submit" class="btn btn-primary" style="margin-top: 5px">Submit</button>
         </div>
     </div>
+
+    
 
     <!-- Product Image:
     <input type="file" name="files[]" id="files" required>

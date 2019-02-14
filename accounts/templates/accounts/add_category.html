@@ -1,23 +1,39 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br><br>
+<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;">
+<h3 style="padding-left:8px; padding-bottom:15px"><strong>Add new category</strong></h3>
 
-<H4>ADD NEW CATEGORY</H4>
-<div class="container" style="border:1px solid #cecece;">
 
 <br>
 
 <form action="/accounts/post_add_category/" method="post">
     {% csrf_token %}
-     Category Name:
-    <input type="text" name="category" required><br><br>
 
-     <br><br>
-    Product Image:
-    <input type="file" name="files[]" id="files" required>
-    <input type="hidden" name="url" id="url">
-    <button type="button" onclick="uploadimage()">Upload</button><br><br>
-    <input type="submit" value="Submit">
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <label>Category Name</label>
+          <input type="text" name="category" class="form-control" placeholder="Enter the category " required>
+        </div>
+    </div>
+    <br>
+    <div class="form-group row">
+        <div class="col-sm-10">
+           <div class="custom-file">
+               <label>Choose product image</label>
+               <input type="file" class="custom-file-input" name="files[]" id="files" required/>
+               <input type="hidden" name="url" id="url">
+           </div>
+               <br>
+               <button class="btn btn-secondary" style="border:1px solid rgba(83, 83, 83, 0.322)" type="button" onclick="uploadImage()">Upload</button>
+               <div class="btnclass pull-right">
+                   <button type="submit" class="btn-custom">Submit</button>
+            </div>
+           </div>
+       </div>
+
+     <br>
 
 
 
@@ -36,7 +52,7 @@
 
   // Get a reference to the storage service, which is used to create references in your storage bucket
 
-  function uploadimage(){
+  function uploadImage(){
   var storage = firebase.storage();
 
   var file = document.getElementById("files").files[0];
