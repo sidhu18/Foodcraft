@@ -5,43 +5,43 @@
 
 {% for product_ids, list_name, list_des, list_price, list_image in comb_lis%}
 <div class="container">
-<ul class="list group" style="border:1px solid #cecece; border-radius:5px;" >
-<br><br>
-<div>
-<dl class="row">
-  <dt class="col-sm-3">Product name :</dt>
-  <dd class="col-sm-9">{{list_name}}</dd>
-</div>
-<div>
-<dl class="row">
-  <dt class="col-sm-3">Product ID :</dt>
-  <dd class="col-sm-9">{{product_ids}}</dd>
-</div>
-  <div>
-<dl class="row">
-  <dt class="col-sm-3">Product Description :</dt>
-  <dd class="col-sm-9">{{list_des}}</dd>
-</div>
-  <div>
-    <dl class="row">
-      <dt class="col-sm-3">Price :</dt>
-      <dd class="col-sm-9">{{list_price}}</dd>
+  <ul class="list group" style="border:1px solid #cecece; border-radius:5px;">
+    <br><br>
+    <div>
+      <dl class="row">
+        <dt class="col-sm-3">Product name :</dt>
+        <dd class="col-sm-9">{{list_name}}</dd>
+    </div>
+    <div>
+      <dl class="row">
+        <dt class="col-sm-3">Product ID :</dt>
+        <dd class="col-sm-9">{{product_ids}}</dd>
+    </div>
+    <div>
+      <dl class="row">
+        <dt class="col-sm-3">Product Description :</dt>
+        <dd class="col-sm-9">{{list_des}}</dd>
+    </div>
+    <div>
+      <dl class="row">
+        <dt class="col-sm-3">Price :</dt>
+        <dd class="col-sm-9">{{list_price}}</dd>
 
     </div>
-<strong>Product Image:</strong>
-<br><br>
-<img src="{{list_image}}" class="img-fluid img-thumbnail " max-width: 100%; height: auto;>
-<br><br>
- <form action="/accounts/post_remove/?z={{product_ids}}" method="post">
-   {% csrf_token %}
-<input class="btn-danger" type="submit" value="REMOVE ITEM"  >
-</form>
- <form action="/accounts/post_pre_update/?z={{product_ids}}" method="post">
-   {% csrf_token %}
-<input class="btn-success" type="submit" value="EDIT ITEM"  >
- </form>
+    <strong>Product Image:</strong>
+    <br><br>
+    <img src="{{list_image}}" class="img-fluid img-thumbnail " max-width: 100%; height: auto;>
+    <br><br>
+    <form action="/accounts/post_remove/?z={{product_ids}}" method="post">
+      {% csrf_token %}
+      <input class="btn btn-danger" type="submit" value="Remove">
+    </form>
+    <form action="/accounts/post_pre_update/?z={{product_ids}}" method="post">
+      {% csrf_token %}
+      <input class=" btn btn-success" type="submit" value="Edit">
+    </form>
 
-</ul>
+  </ul>
 </div>
 {% endfor %}
 

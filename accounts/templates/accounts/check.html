@@ -1,25 +1,27 @@
-
-
 {% extends 'base.html' %}
-
-
-
 {% block body %}
+
 <br><br>
-<div class="container">
-  <h3 style="padding-left:8px; padding-bottom:15px"><strong>Categories</strong></h3>
 
-<br>
-<ul class="list-group ">
-{% if cat_Ids is None %}
-{% for cat_Ids, lis_cat_name in comb_lis %}
-  <li class="list-group-item" ><a href="/accounts/post_check/?z={{cat_Ids}}" style="color:darkslateblue; " > {{lis_cat_name}} </a> </li>
-<br>
+<div class="container" style="border:1px solid rgb(230, 230, 230); border-radius: 5px; background: #ffffff;">
+  <h3 style="padding-left:8px; padding-bottom:5px"><strong>Categories</strong></h3>
+  <div class="container-fluid rounded" style="border-bottom:1px solid rgba(230, 230, 230, 0.5);padding:0px"></div>
 
-{% endfor %}
-{% endif %}
-</ul>
+  <br><Br>
+
+  <ul class="list-group ">
+
+    {% if cat_Ids is None %}
+    {% for cat_Ids, lis_cat_name in comb_lis %}
+
+    <li class="list-group-item"><a href="/accounts/post_check/?z={{cat_Ids}}" style="color:black; text-decoration: none ">
+        {{lis_cat_name}} </a> </li>
+    <br>
+
+    {% endfor %}
+    {% endif %}
+
+  </ul>
 </div>
-
 
 {% endblock %}

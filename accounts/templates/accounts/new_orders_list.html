@@ -1,107 +1,98 @@
 {% extends 'base.html' %}
-
-
-
 {% block body %}
-
 
 <br>
 <br>
 <link rel="stylesheet" type="text/css" href="style.css">
-<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;" >
-
- <h3 style="padding-left:8px;"><strong>New Orders</strong></h3>
-
-
- {% for order_id, order_data in orders.items %}
- <br>
-
-<div class="container-fluid rounded" style="border:1px solid #ffffff; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px" >
- <table class="table" style="width:80%;">
+<div class="container" style="border:1px solid rgb(230, 230, 230); border-radius: 5px; background: #ffffff;">
+    <h3 style="padding-left:8px;"><strong>New Orders</strong></h3>
+    <div class="container-fluid rounded" style="border-bottom:1px solid rgba(230, 230, 230, 0.5);padding:0px"></div>
+    {% for order_id, order_data in orders.items %}
     <br>
-  <tr>
-    <th>Category</th>
-    <th>Item Name</th>
-    <th>Quantity</th>
-    <th>Price</th>
+    <div class="container-fluid rounded" style="border:1px solid #ffffff; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px">
+        <table class="table" style="width:80%;">
+            <br>
+            <tr>
+                <th>Category</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                
+            </tr>
 
-  </tr>
- 
-
-  
-
-{% for order_subid, contents in order_data.items %}
-
-
-    {% if order_subid != 'user_ID' or order_subid != 'address' or order_subid != 'phone' or order_subid != 'total' or order_subid != 'order_date' or order_subid != 'payment_status'  %}
-
-  <tr>
-        {% for label, item in contents.items %}
-
-    <td height="30px" >{{ item }}</td>
-
-        {% endfor %}
-
-  </tr>
-
-    {% endif %}
-
-    {% if order_subid == 'address' %}
-
-    <dl class="row">
-        <dt class="col-sm-3">Address :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
-
-    {% endif %}
-
-    {% if order_subid == 'phone' %}
-
-    <dl class="row">
-        <dt class="col-sm-3">Phone :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
-
-    {% endif %}
-
-    {% if order_subid == 'order_date' %}
-
-    <dl class="row">
-        <dt class="col-sm-3">Order date :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
-
-    {% endif %}
+            {% for order_subid, contents in order_data.items %}
 
 
-    {% if order_subid == 'total' %}
+            {% if order_subid != 'user_ID' or order_subid != 'address' or order_subid != 'phone' or order_subid !=
+            'total' or order_subid != 'order_date' or order_subid != 'payment_status' %}
 
-    <dl class="row">
-        <dt class="col-sm-3">Total :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            <tr>
+                {% for label, item in contents.items %}
 
-    {% endif %}
+                <td height="30px">{{ item }}</td>
 
-    {% if order_subid == 'payment_status' %}
+                {% endfor %}
 
-    <dl class="row">
-        <dt class="col-sm-3">Payment Status :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            </tr>
 
-    {% endif %}
+            {% endif %}
 
-  {% endfor %}
+            {% if order_subid == 'address' %}
 
-  <br>
+            <dl class="row">
+                <dt class="col-sm-3">Address :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
+
+            {% endif %}
+
+            {% if order_subid == 'phone' %}
+
+            <dl class="row">
+                <dt class="col-sm-3">Phone :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
+
+            {% endif %}
+
+            {% if order_subid == 'order_date' %}
+
+            <dl class="row">
+                <dt class="col-sm-3">Order date :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
+
+            {% endif %}
 
 
-</table>
+            {% if order_subid == 'total' %}
 
-<form action="/accounts/order_taken/?z={{order_id}}" method="post">
-    {% csrf_token %}
-    
-<input class="btn btn-primary" type="submit" value="CHECK ORDER"  >
-</form>
-</div>
+            <dl class="row">
+                <dt class="col-sm-3">Total :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
- {% endfor %}
+            {% endif %}
+
+            {% if order_subid == 'payment_status' %}
+
+            <dl class="row">
+                <dt class="col-sm-3">Payment Status :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
+
+            {% endif %}
+
+            {% endfor %}
+
+            <br>
+
+
+        </table>
+
+        <form action="/accounts/order_taken/?z={{order_id}}" method="post">
+            {% csrf_token %}
+
+            <input class="btn btn-primary" type="submit" value="CHECK ORDER">
+        </form>
+    </div>
+
+    {% endfor %}
 </div>
 <br><br>
 

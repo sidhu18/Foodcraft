@@ -1,96 +1,97 @@
 {% extends 'base.html' %}
-
-
-
 {% block body %}
 
-
 <br>
 <br>
 
-<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;" >
+<div class="container" style="border:1px #d9d9d9; border-radius: 5px; background: #fff;">
 
     <h3 style="padding-left:8px; padding-bottom:15px"><strong>Completed orders</strong></h3>
 
-{% for order_id, order_data in orders.items %}
-<div class="container-fluid rounded" style="border:1px solid #ffffff; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px; padding-top:5px" >
- <table class="table table-striped" style="width:80%">
-<div class="container-fluid rounded"style="border-bottom:1px solid rgba(200, 200, 200, 0.15);padding:0px">   
-    <h4>Order # {{order_id}}</h4>
-</div>
+    {% for order_id, order_data in orders.items %}
+    <div class="container-fluid rounded" style="border:1px solid #e9e9e9; border-radius: 5px; background: #ffffff; margin-bottom:10px;padding-left:25px; padding-top:5px">
+        <table class="table table-bordered" style="width:80%">
+            <div class="container-fluid rounded" style="border-bottom:1px solid rgba(200, 200, 200, 0.15);padding:0px">
+                <h4><strong>Order # {{order_id}}</strong></h4>
+            </div>
 
-  <tr>
-    <th>Category</th>
-    <th>Item Name</th>
-    <th>Quantity</th>
-    <th>Price</th>
+            <tr>
+                <th>Category</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
 
-  </tr>
+            </tr>
 
-{% for order_subid, contents in order_data.items %}
+            {% for order_subid, contents in order_data.items %}
 
-    {% if order_subid != 'user_ID' or order_subid != 'address' or order_subid != 'phone' or order_subid != 'total' or order_subid != 'order_date' or order_subid != 'payment_status'  %}
+            {% if order_subid != 'user_ID' or order_subid != 'address' or order_subid != 'phone' or order_subid !=
+            'total' or order_subid != 'order_date' or order_subid != 'payment_status' %}
 
-  <tr>
-        {% for label, item in contents.items %}
+            <tr>
+                {% for label, item in contents.items %}
 
-    <td height="30px" >{{ item }}</td>
+                <td height="30px">{{ item }}</td>
 
-        {% endfor %}
+                {% endfor %}
 
-  </tr>
+            </tr>
 
-    {% endif %}
+            {% endif %}
 
-    {% if order_subid == 'address' %}
+            {% if order_subid == 'address' %}
+            <br>
+            <dl class="row">
+                <dt class="col-sm-3">Address :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
-    <dl class="row">
-        <dt class="col-sm-3">Address :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            {% endif %}
 
-    {% endif %}
+            {% if order_subid == 'phone' %}
 
-    {% if order_subid == 'phone' %}
+            <dl class="row">
+                <dt class="col-sm-3">Phone :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
-    <dl class="row">
-        <dt class="col-sm-3">Phone :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            {% endif %}
 
-    {% endif %}
+            {% if order_subid == 'order_date' %}
 
-    {% if order_subid == 'order_date' %}
+            <dl class="row">
+                <dt class="col-sm-3">Order Date :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
-    <dl class="row">
-        <dt class="col-sm-3">Order Date :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
-
-    {% endif %}
+            {% endif %}
 
 
-    {% if order_subid == 'total' %}
+            {% if order_subid == 'total' %}
 
-    <dl class="row">
-        <dt class="col-sm-3">Total Amount :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            <dl class="row">
+                <dt class="col-sm-3">Total Amount :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
-    {% endif %}
+            {% endif %}
 
-    {% if order_subid == 'payment_status' %}
+            {% if order_subid == 'payment_status' %}
 
-    <dl class="row">
-        <dt class="col-sm-3">Payment Status :</dt>
-        <dd class="col-sm-9">{{contents}}</dd>
+            <dl class="row">
+                <dt class="col-sm-3">Payment Status :</dt>
+                <dd class="col-sm-9">{{contents}}</dd>
 
-    {% endif %}
+            {% endif %}
 
-  {% endfor %}
+            {% endfor %}
 
-  <br>
+            <br>
+            <div class="container-fluid rounded" style="border-bottom:1px solid rgba(200, 200, 200, 0.15);padding:0px">
+                <h4><strong>Invoice</strong></h4>
+            </div>
 
-</table>
+            <br>
+        </table>
 
-</div>
- {% endfor %}
+    </div>
+    {% endfor %}
 </div>
 <br><br>
 

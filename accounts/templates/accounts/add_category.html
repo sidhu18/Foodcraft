@@ -2,90 +2,86 @@
 
 {% block body %}
 <br><br>
-<div class="container" style="border:1px solid rgba(200, 200, 200, 0.15); border-radius: 5px; background: #f8f8f8;">
-<h3 style="padding-left:8px; padding-bottom:15px"><strong>Add new category</strong></h3>
+<div class="container" style="border:1px solid rgb(230, 230, 230); border-radius: 5px; background: #ffffff;">
+    <h3 style="padding-left:8px; padding-bottom:5px"><strong>Add new category</strong></h3>
+    <div class="container-fluid rounded" style="border-bottom:1px solid rgba(230, 230, 230, 0.5);padding:0px"></div>
 
-
-<br>
-
-<form action="/accounts/post_add_category/" method="post">
-    {% csrf_token %}
-
-    <div class="form-group row">
-        <div class="col-sm-10">
-            <label>Category Name</label>
-          <input type="text" name="category" class="form-control" placeholder="Enter the category " required>
-        </div>
-    </div>
     <br>
-    <div class="form-group row">
-        <div class="col-sm-10">
-           <div class="custom-file">
-               <label>Choose product image</label>
-               <input type="file" class="custom-file-input" name="files[]" id="files" required/>
-               <input type="hidden" name="url" id="url">
-           </div>
-               <br>
-               <button class="btn btn-secondary" style="border:1px solid rgba(83, 83, 83, 0.322)" type="button" onclick="uploadImage()">Upload</button>
-               <div class="btnclass pull-right">
-                   <button type="submit" class="btn-custom">Submit</button>
+
+    <form action="/accounts/post_add_category/" method="post">
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <label>Category Name</label>
+                <input type="text" name="category" class="form-control" placeholder="Enter the category " required>
             </div>
-           </div>
-       </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <div class="custom-file">
+                    <label>Choose product image</label>
+                    <input type="file" class="custom-file-input" name="files[]" id="files" required />
+                    <input type="hidden" name="url" id="url">
+                </div>
+                <br>
+                <button class="btn btn-secondary" style="border:1px solid rgba(83, 83, 83, 0.322)" type="button"
+                    onclick="uploadImage()">Upload</button>
+                <div class="btnclass pull-right">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
 
-     <br>
+        <br>
 
 
 
-</form>
+    </form>
 </div>
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
 <script>
     var config = {
-    apiKey: "AIzaSyB0Il0NLQPxxDyMgoE0fOMd4pYUkbkZVvI",
-    authDomain: "cpanel-5e873.firebaseapp.com",
-    databaseURL: "https://cpanel-5e873.firebaseio.com",
-    storageBucket: "cpanel-5e873.appspot.com",
-    messagingSenderId: "579985583952"
-  };
-  firebase.initializeApp(config);
+        apiKey: "AIzaSyB0Il0NLQPxxDyMgoE0fOMd4pYUkbkZVvI",
+        authDomain: "cpanel-5e873.firebaseapp.com",
+        databaseURL: "https://cpanel-5e873.firebaseio.com",
+        storageBucket: "cpanel-5e873.appspot.com",
+        messagingSenderId: "579985583952"
+    };
+    firebase.initializeApp(config);
 
-  // Get a reference to the storage service, which is used to create references in your storage bucket
+    // Get a reference to the storage service, which is used to create references in your storage bucket
 
-  function uploadImage(){
-  var storage = firebase.storage();
+    function uploadImage() {
+        var storage = firebase.storage();
 
-  var file = document.getElementById("files").files[0];
+        var file = document.getElementById("files").files[0];
 
-  var storageRef = storage.ref();
+        var storageRef = storage.ref();
 
-  var thisref = storageRef.child(file.name).put(file);
+        var thisref = storageRef.child(file.name).put(file);
 
-  thisref.on('state_changed',function(snapshot){
+        thisref.on('state_changed', function (snapshot) {
 
-  console.log("file uplaoded succesfully");
+            console.log("file uplaoded succesfully");
 
-  },
-  function(error) {
+        },
+            function (error) {
 
-  },
+            },
 
-  function() {
-  // Upload completed successfully, now we can get the download URL
-  var downloadURL = thisref.snapshot.downloadURL;
-  console.log("got url");
-  document.getElementById("url").value = downloadURL;
-  alert("file uploaded successfully");
-});
-
-
-
-
-
-
+            function () {
+                // Upload completed successfully, now we can get the download URL
+                var downloadURL = thisref.snapshot.downloadURL;
+                console.log("got url");
+                document.getElementById("url").value = downloadURL;
+                alert("file uploaded successfully");
+            });
     }
 
 
 </script>
+
 </html>
 {% endblock %}
